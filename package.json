@@ -1,0 +1,25 @@
+{
+  "name": "nodejs-double-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "ws": "^1.1.1",
+    "node-static": "^0.7.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VLADOS776/NodeJS-Double-server.git"
+  },
+  "author": "VLADOS776",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VLADOS776/NodeJS-Double-server/issues"
+  },
+  "homepage": "https://github.com/VLADOS776/NodeJS-Double-server#readme"
+}
