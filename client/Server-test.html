@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Client test</title>
+    </head>
+    <body>
+        <form name="publish">
+            <input type="text" name="message">
+            <input type="submit" value="Send">
+        </form>
+        
+        <div id="activity"></div>
+        <div id="online" style="position: fixed;right: 10px;top: 10px;padding: 10px;background: #93de8b;border-radius: 5px;line-height: 1em;">0</div>
+        
+        <script>
+            var socket = new WebSocket("ws://localhost:8081");
+            
+            document.forms.publish.onsubmit = function() {
+                var obj = {
+                    message: this.message.value
+                }
+                
+                socket.send(JSON.stringify(obj));
+                return false;
+            };
+            
+            socket.onmessage = function(event) {
+                var incObj = JSON.parse(event.data);
+                
+                
+                if (typeof incObj.server == 'undefined') {
+                    showMsg(incObj.message);
+                    return false;
+                }
+                if (incObj.type == 'first-connect') {
+                    console.log(incObj);
+                } else if (incObj.type == 'online') {
+                    document.getElementById('online').innerHTML = incObj.online;
+                }
+                //if (incMsg.indexOf('onlinecount'))
+            }
+            
+            function showMsg(message) {
+                var messageDOM = document.createElement('div');
+                messageDOM.appendChild(document.createTextNode(message));
+                document.getElementById('activity').appendChild(messageDOM);
+            }
+        </script>
+    </body>
+</html>
