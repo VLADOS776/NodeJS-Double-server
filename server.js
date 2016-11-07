@@ -4,7 +4,7 @@ var config          = new require("./libs/config");
 var players         = new require("./libs/clients");
 var double          = new require("./libs/double");
 
-var port = 8000;
+var port = process.env.PORT || 8000;
 
 var server = http.createServer(function(req, res) {
     console.log((new Date())+' request for ' + req.url);
