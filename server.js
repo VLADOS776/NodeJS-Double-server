@@ -1,17 +1,10 @@
 var WebSocketServer = new require("ws").Server;
 var http            = new require('http');
-var express         = new require('express');
 var config          = new require("./libs/config");
 var players         = new require("./libs/clients");
 var double          = new require("./libs/double");
 
-var app = express();
-
-var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-var port      = process.env.OPENSHIFT_NODEJS_PORT || 8000;
-
-app.set('port', port);
-app.set('ipaddress', ipaddress);
+var port = 8000;
 
 var server = http.createServer(function(req, res) {
     console.log((new Date())+' request for ' + req.url);
@@ -31,10 +24,8 @@ wss.on('connection', function(ws) {
     players.newClient(ws);
 })
 
-console.log('Listening to '+ ipaddress + ':' + port + '...');
+console.log('Listening to ' + port + '...');
 
 double.newGame();
 
-server.listen(port, ipaddress, function() {
-    console.log((new Date()) + ' Server is listening on port '+ port);
-});
+server.listen(port);
