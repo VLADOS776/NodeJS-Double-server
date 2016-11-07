@@ -13,33 +13,19 @@ var port      = process.env.OPENSHIFT_NODEJS_PORT || 8000;
 app.set('port', port);
 app.set('ipaddress', ipaddress);
 
-var server = http.createServer(/*function(req, res) {
+var server = http.createServer(function(req, res) {
     console.log((new Date())+' request for ' + req.url);
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.write('Welcome to Node.js on OpenShift\n\n');
     res.end('Thanks for visiting');
-}*/app);
+});
 
-var io = require('socket.io').listen(server);
-
-io.sockets.on('connection', function(socket) {
-    socket.emit('news', {hello: 'world'});
-    socket.on('other event', function(data) {
-        console.log(data);
-    })
-})
-
-server.listen(app.get('port'), app.get('ipaddress'), function() {
-    console.log('Express server listening on port ' + app.get('port'));
-})
-
-/*
 wss = new WebSocketServer({
     server: server
     //port: 8080
 });
 
-console.log(wss);
+//console.log(wss);
 
 wss.on('connection', function(ws) {
     players.newClient(ws);
@@ -51,4 +37,4 @@ double.newGame();
 
 server.listen(port, ipaddress, function() {
     console.log((new Date()) + ' Server is listening on port '+ port);
-});*/
+});
