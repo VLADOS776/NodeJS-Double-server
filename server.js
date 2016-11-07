@@ -1,5 +1,6 @@
 var WebSocketServer = new require("ws").Server;
 var http            = new require('http');
+var express         = new require('express');
 var config          = new require("./libs/config");
 var players         = new require("./libs/clients");
 var double          = new require("./libs/double");
@@ -15,8 +16,6 @@ const wss = new WebSocketServer({server: server});
 wss.on('connection', function(ws) {
     players.newClient(ws);
 })
-
-console.log('Listening to ' + port + '...');
 
 double.newGame();
 
