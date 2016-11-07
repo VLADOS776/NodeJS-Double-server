@@ -14,6 +14,8 @@ function newGame() {
     nextRollTime = Date.now() + config.rollTime
     bets = [];
     
+    console.log('Double: New game.');
+    
     players.sendToAll({
         server: true,
         type: 'new-game',
@@ -28,6 +30,7 @@ function newGame() {
 function startGame() {
     gamestart = true;
     var winNum = Math.rand(0, 14);
+    console.log('Double: Start game. Win number: '+winNum);
     
     lastNumbers = [winNum].concat(lastNumbers);
     if (lastNumbers.length > config.lastGameCount)
