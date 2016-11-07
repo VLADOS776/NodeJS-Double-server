@@ -6,19 +6,11 @@ var double          = new require("./libs/double");
 
 var port = process.env.PORT || 8000;
 
-var server = http.createServer(function(req, res) {
-    console.log((new Date())+' request for ' + req.url);
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.write('Welcome to Node.js on OpenShift\n\n');
-    res.end('Thanks for visiting');
-});
+const server = express()
+      .use((req,res) => res.end('Hello :)'))
+      .listen(port, () => console.log(`Listening on ${ port }`));
 
-wss = new WebSocketServer({
-    server: server
-    //port: 8080
-});
-
-//console.log(wss);
+const wss = new WebSocketServer({server: server});
 
 wss.on('connection', function(ws) {
     players.newClient(ws);
