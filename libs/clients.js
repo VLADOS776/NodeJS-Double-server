@@ -4,6 +4,8 @@ var config          = new require("./config");
 
 var clients = {};
 
+var PONG = {type: 'pong'};
+
 function newClient(ws) {
     var id = Math.random();
     clients[id] = ws;
@@ -29,17 +31,25 @@ function newClient(ws) {
     ws.on('close', function(){
         close(id)
     });
+    
+    function newMessage(message) {
+        console.log(message);
+        var message = JSON.parse(message);
+
+        switch (message.type) {
+            case 'bet':
+                double.newBet(message);
+                sendToAll(message);
+                break;
+            case 'ping':
+                ws.send(JSON.stringify(PONG));
+                break;
+        }
+
+        sendToAll(message);
+    };
 };
     
-function newMessage(message) {
-    console.log(message);
-    var message = JSON.parse(message);
-    
-    if (message.type == 'bet')
-        double.newBet(message);
-    
-    sendToAll(message);
-};
     
 function close(id) {
     console.log('Connection closed: ' + id);

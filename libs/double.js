@@ -41,6 +41,7 @@ function startGame() {
         type: 'win-number',
         number: winNum
     });
+    nextRollTime = Date.now() + config.pauseBeforeNewGame;
     
     setTimeout(function() {
         newGame();
@@ -56,7 +57,7 @@ function getBets() {
 }
 
 function getNextRoll() {
-    return nextRollTime;
+    return nextRollTime - Date.now();
 }
 
 function getLastNumbers() {
