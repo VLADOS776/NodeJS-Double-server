@@ -44,6 +44,8 @@ function newClient(ws) {
             case 'ping':
                 ws.send(JSON.stringify(PONG));
                 break;
+            default:
+                sendToAll(message);
         }
     };
 };
