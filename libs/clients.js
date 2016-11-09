@@ -45,8 +45,6 @@ function newClient(ws) {
                 ws.send(JSON.stringify(PONG));
                 break;
         }
-
-        sendToAll(message);
     };
 };
     
