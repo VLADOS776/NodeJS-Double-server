@@ -5,7 +5,7 @@ var config          = new require("./libs/config");
 var players         = new require("./libs/clients");
 var double          = new require("./libs/double");
 
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 8010;
 
 const server = express()
       .use((req,res) => res.end('Hello :)'))
