@@ -1,6 +1,9 @@
 var WebSocketServer = new require("ws");
 var double          = new require("./double");
 var config          = new require("./config");
+var log4js          = require('log4js');
+
+var logger = log4js.getLogger();
 
 var clients = {};
 
@@ -21,7 +24,7 @@ function newClient(ws) {
     }
     ws.send(JSON.stringify(firstConnect));
     
-    console.log("New connection: "+id);
+    logger.info("New connection: " + id);
     
     onlineChanged();
     
@@ -33,7 +36,7 @@ function newClient(ws) {
     });
     
     function newMessage(message) {
-        console.log(message);
+        logger.info(message);
         var message = JSON.parse(message);
 
         switch (message.type) {
@@ -44,7 +47,7 @@ function newClient(ws) {
             case 'ping':
                 ws.send(JSON.stringify(PONG));
                 break;
-            default:
+            case 'message':
                 sendToAll(message);
         }
     };
@@ -52,7 +55,7 @@ function newClient(ws) {
     
     
 function close(id) {
-    console.log('Connection closed: ' + id);
+    logger.info('Connection closed: ' + id);
     delete clients[id];
     onlineChanged();
 };

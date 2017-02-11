@@ -1,5 +1,8 @@
 var config  = new require("./config");
 var players = new require("./clients");
+var log4js  = require('log4js');
+
+var logger = log4js.getLogger('game');
 
 var numbers = [1, 14, 2, 13, 3, 12, 4, 0, 11, 5, 10, 6, 9, 7, 8];
 
@@ -14,7 +17,7 @@ function newGame() {
     nextRollTime = Date.now() + config.rollTime
     bets = [];
     
-    console.log('Double: New game.');
+    logger.info('Double: New game.');
     
     players.sendToAll({
         server: true,
@@ -30,7 +33,7 @@ function newGame() {
 function startGame() {
     gamestart = true;
     var winNum = Math.rand(0, 14);
-    console.log('Double: Start game. Win number: '+winNum);
+    logger.info('Double: Start game. Win number: '+winNum);
     
     lastNumbers = [winNum].concat(lastNumbers);
     if (lastNumbers.length > config.lastGameCount)
