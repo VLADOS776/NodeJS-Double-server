@@ -41,6 +41,7 @@ function newClient(ws) {
 
         switch (message.type) {
             case 'bet':
+                if (message.bet > config.betLimit) message.bet = betLimit;
                 double.newBet(message);
                 sendToAll(message);
                 break;
