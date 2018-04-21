@@ -18,5 +18,3 @@ wss.on('connection', function(ws) {
 })
 
 double.newGame();
-
-server.listen(port);
